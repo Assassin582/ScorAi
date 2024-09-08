@@ -1,0 +1,1086 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/regular/side/side_widget.dart';
+import '/walkthroughs/sstart.dart';
+import 'dart:math';
+import 'dart:async';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart'
+    show TutorialCoachMark;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import 'rhome_model.dart';
+export 'rhome_model.dart';
+
+class RhomeWidget extends StatefulWidget {
+  const RhomeWidget({
+    super.key,
+    this.sc,
+  });
+
+  final DocumentReference? sc;
+
+  @override
+  State<RhomeWidget> createState() => _RhomeWidgetState();
+}
+
+class _RhomeWidgetState extends State<RhomeWidget>
+    with TickerProviderStateMixin {
+  late RhomeModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => RhomeModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Rhome'});
+    animationsMap.addAll({
+      'cardOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          ShimmerEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            color: Color(0xFFD79C25),
+            angle: 0.524,
+          ),
+        ],
+      ),
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<ApiCallResponse>(
+      future: (_model.apiRequestCompleter2 ??= Completer<ApiCallResponse>()
+            ..complete(ScoryapiCall.call()))
+          .future,
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Color(0xFF7E0C2B),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+        final rhomeScoryapiResponse = snapshot.data!;
+
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+              automaticallyImplyLeading: false,
+              leading: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  logFirebaseEvent('RHOME_PAGE_Icon_ckm5tuvd_ON_TAP');
+                  logFirebaseEvent('Icon_bottom_sheet');
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return GestureDetector(
+                        onTap: () => FocusScope.of(context).unfocus(),
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: SideWidget(),
+                        ),
+                      );
+                    },
+                  ).then((value) => safeSetState(() {}));
+                },
+                child: Icon(
+                  Icons.menu_outlined,
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  size: 30,
+                ),
+              ),
+              actions: [
+                Align(
+                  alignment: AlignmentDirectional(1, 0),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 30, 0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent('RHOME_PAGE_Icon_1ui3oveu_ON_TAP');
+                        logFirebaseEvent('Icon_refresh_database_request');
+                        safeSetState(() => _model.apiRequestCompleter2 = null);
+                        await _model.waitForApiRequestCompleted2();
+                        logFirebaseEvent('Icon_backend_call');
+                        _model.apiResult7mt = await SheetCall.call();
+
+                        logFirebaseEvent('Icon_backend_call');
+                        await ShCall.call();
+
+                        logFirebaseEvent('Icon_backend_call');
+                        await ScoryapiCall.call();
+
+                        logFirebaseEvent('Icon_backend_call');
+                        await FtcapifirstinspiresorgCall.call();
+
+                        if ((_model.apiResult7mt?.succeeded ?? true)) {
+                          logFirebaseEvent('Icon_show_snack_bar');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Suk',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                        } else {
+                          logFirebaseEvent('Icon_show_snack_bar');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Nuh Uh',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                        }
+
+                        safeSetState(() {});
+                      },
+                      child: Icon(
+                        Icons.restart_alt,
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+              centerTitle: false,
+              elevation: 2,
+            ),
+            body: SafeArea(
+              top: true,
+              child: Stack(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    constraints: BoxConstraints(
+                      minWidth: double.infinity,
+                      minHeight: double.infinity,
+                      maxWidth: double.infinity,
+                      maxHeight: double.infinity,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          FlutterFlowTheme.of(context).secondaryBackground,
+                          Color(0xFF6D0506)
+                        ],
+                        stops: [0, 1],
+                        begin: AlignmentDirectional(0, -1),
+                        end: AlignmentDirectional(0, 1),
+                      ),
+                    ),
+                    child: Align(
+                      alignment: AlignmentDirectional(0, -1),
+                      child: FutureBuilder<ApiCallResponse>(
+                        future: (_model.apiRequestCompleter1 ??=
+                                Completer<ApiCallResponse>()
+                                  ..complete(ScoryapiCall.call()))
+                            .future,
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Color(0xFF7E0C2B),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          final sqtScoryapiResponse = snapshot.data!;
+
+                          return RefreshIndicator(
+                            onRefresh: () async {
+                              logFirebaseEvent(
+                                  'RHOME_PAGE_SQT_ON_PULL_TO_REFRESH');
+                              logFirebaseEvent('SQT_refresh_database_request');
+                              safeSetState(
+                                  () => _model.apiRequestCompleter1 = null);
+                              await _model.waitForApiRequestCompleted1();
+                            },
+                            child: SingleChildScrollView(
+                              primary: false,
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 60, 0, 0),
+                                      child: Builder(
+                                        builder: (context) {
+                                          final sl = (ScoryapiCall.matchNumber(
+                                                    rhomeScoryapiResponse
+                                                        .jsonBody,
+                                                  )?.toList() ??
+                                                  [])
+                                              .take(140)
+                                              .toList();
+
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: List.generate(sl.length,
+                                                (slIndex) {
+                                              final slItem = sl[slIndex];
+                                              return Align(
+                                                alignment:
+                                                    AlignmentDirectional(0, -1),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(15, 5, 15, 0),
+                                                  child: FutureBuilder<
+                                                      ApiCallResponse>(
+                                                    future: ShCall.call(),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50,
+                                                            height: 50,
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              valueColor:
+                                                                  AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                Color(
+                                                                    0xFF7E0C2B),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final qfShResponse =
+                                                          snapshot.data!;
+
+                                                      return Card(
+                                                        clipBehavior: Clip
+                                                            .antiAliasWithSaveLayer,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        elevation: 4,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            logFirebaseEvent(
+                                                                'RHOME_PAGE_Stack_vbxl0uoj_ON_TAP');
+                                                            logFirebaseEvent(
+                                                                'Stack_backend_call');
+
+                                                            await currentUserReference!
+                                                                .update(
+                                                                    createUsersRecordData(
+                                                              page: ScoryapiCall
+                                                                  .matchNumber(
+                                                                sqtScoryapiResponse
+                                                                    .jsonBody,
+                                                              )?[slIndex],
+                                                            ));
+                                                            logFirebaseEvent(
+                                                                'Stack_navigate_to');
+
+                                                            context.pushNamed(
+                                                              'scouting',
+                                                              extra: <String,
+                                                                  dynamic>{
+                                                                kTransitionInfoKey:
+                                                                    TransitionInfo(
+                                                                  hasTransition:
+                                                                      true,
+                                                                  transitionType:
+                                                                      PageTransitionType
+                                                                          .rightToLeft,
+                                                                ),
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width:
+                                                                double.infinity,
+                                                            child: Stack(
+                                                              children: [
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          0, 0),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            35,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      FFLocalizations.of(
+                                                                              context)
+                                                                          .getText(
+                                                                        'jwrgz1ea' /* VS */,
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Readex Pro',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          1, 0),
+                                                                  child:
+                                                                      Container(
+                                                                    width: 99,
+                                                                    height: 42,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .blueteam1,
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(10),
+                                                                        bottomRight:
+                                                                            Radius.circular(0),
+                                                                        topLeft:
+                                                                            Radius.circular(0),
+                                                                        topRight:
+                                                                            Radius.circular(0),
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Text(
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                          (ScoryapiCall.blue11(
+                                                                            rhomeScoryapiResponse.jsonBody,
+                                                                          )?[slIndex])
+                                                                              ?.toString(),
+                                                                          '0',
+                                                                        ),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Readex Pro',
+                                                                              letterSpacing: 0.0,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          1, 0),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            50,
+                                                                            0,
+                                                                            0),
+                                                                    child:
+                                                                        Container(
+                                                                      width: 99,
+                                                                      height:
+                                                                          42,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .blueteam2,
+                                                                        borderRadius:
+                                                                            BorderRadius.only(
+                                                                          bottomLeft:
+                                                                              Radius.circular(0),
+                                                                          bottomRight:
+                                                                              Radius.circular(0),
+                                                                          topLeft:
+                                                                              Radius.circular(10),
+                                                                          topRight:
+                                                                              Radius.circular(0),
+                                                                        ),
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).success,
+                                                                          width:
+                                                                              0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Align(
+                                                                        alignment: AlignmentDirectional(
+                                                                            0,
+                                                                            0),
+                                                                        child:
+                                                                            Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            (ScoryapiCall.blue22(
+                                                                              rhomeScoryapiResponse.jsonBody,
+                                                                            )?[slIndex])
+                                                                                ?.toString(),
+                                                                            '0',
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Readex Pro',
+                                                                                letterSpacing: 0.0,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          -1,
+                                                                          0),
+                                                                  child:
+                                                                      Container(
+                                                                    width: 99,
+                                                                    height: 42,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .redteam1,
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .only(
+                                                                        bottomLeft:
+                                                                            Radius.circular(0),
+                                                                        bottomRight:
+                                                                            Radius.circular(10),
+                                                                        topLeft:
+                                                                            Radius.circular(0),
+                                                                        topRight:
+                                                                            Radius.circular(0),
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          Text(
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                          (ScoryapiCall.red11(
+                                                                            rhomeScoryapiResponse.jsonBody,
+                                                                          )?[slIndex])
+                                                                              ?.toString(),
+                                                                          '0',
+                                                                        ),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Readex Pro',
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.normal,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          -1,
+                                                                          0),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            50,
+                                                                            0,
+                                                                            0),
+                                                                    child:
+                                                                        Container(
+                                                                      width: 99,
+                                                                      height:
+                                                                          42,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .redteam2,
+                                                                        borderRadius:
+                                                                            BorderRadius.only(
+                                                                          bottomLeft:
+                                                                              Radius.circular(0),
+                                                                          bottomRight:
+                                                                              Radius.circular(0),
+                                                                          topLeft:
+                                                                              Radius.circular(0),
+                                                                          topRight:
+                                                                              Radius.circular(10),
+                                                                        ),
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondary,
+                                                                          width:
+                                                                              0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Align(
+                                                                        alignment: AlignmentDirectional(
+                                                                            0,
+                                                                            0),
+                                                                        child:
+                                                                            Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            (ScoryapiCall.red22(
+                                                                              rhomeScoryapiResponse.jsonBody,
+                                                                            )?[slIndex])
+                                                                                ?.toString(),
+                                                                            '0',
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Readex Pro',
+                                                                                letterSpacing: 0.0,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          0, 1),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            2,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        (ScoryapiCall.matchNumber(
+                                                                          rhomeScoryapiResponse
+                                                                              .jsonBody,
+                                                                        )?[slIndex])
+                                                                            ?.toString(),
+                                                                        '0',
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Readex Pro',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          0, 0),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            70,
+                                                                            0,
+                                                                            0),
+                                                                    child: Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        ScoryapiCall
+                                                                            .startTime(
+                                                                          rhomeScoryapiResponse
+                                                                              .jsonBody,
+                                                                        )?[slIndex],
+                                                                        'ere',
+                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Readex Pro',
+                                                                            fontSize:
+                                                                                12,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                if ((ShCall.r2s(
+                                                                      qfShResponse
+                                                                          .jsonBody,
+                                                                    )?[slIndex]) ==
+                                                                    currentUserDisplayName)
+                                                                  Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            -1,
+                                                                            0),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              50,
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          AuthUserStreamWidget(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                Container(
+                                                                          width:
+                                                                              99,
+                                                                          height:
+                                                                              42,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).redteam2,
+                                                                            borderRadius:
+                                                                                BorderRadius.only(
+                                                                              bottomLeft: Radius.circular(0),
+                                                                              bottomRight: Radius.circular(0),
+                                                                              topLeft: Radius.circular(0),
+                                                                              topRight: Radius.circular(10),
+                                                                            ),
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).success,
+                                                                              width: 4,
+                                                                            ),
+                                                                          ),
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(0, 0),
+                                                                            child:
+                                                                                Text(
+                                                                              valueOrDefault<String>(
+                                                                                (ScoryapiCall.red22(
+                                                                                  rhomeScoryapiResponse.jsonBody,
+                                                                                )?[slIndex])
+                                                                                    ?.toString(),
+                                                                                '0',
+                                                                              ),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Readex Pro',
+                                                                                    letterSpacing: 0.0,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                if ((ShCall.r1s(
+                                                                      qfShResponse
+                                                                          .jsonBody,
+                                                                    )?[slIndex]) ==
+                                                                    currentUserDisplayName)
+                                                                  Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            -1,
+                                                                            0),
+                                                                    child:
+                                                                        AuthUserStreamWidget(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              Container(
+                                                                        width:
+                                                                            99,
+                                                                        height:
+                                                                            42,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).redteam1,
+                                                                          borderRadius:
+                                                                              BorderRadius.only(
+                                                                            bottomLeft:
+                                                                                Radius.circular(0),
+                                                                            bottomRight:
+                                                                                Radius.circular(10),
+                                                                            topLeft:
+                                                                                Radius.circular(0),
+                                                                            topRight:
+                                                                                Radius.circular(0),
+                                                                          ),
+                                                                          border:
+                                                                              Border.all(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).success,
+                                                                            width:
+                                                                                4,
+                                                                          ),
+                                                                        ),
+                                                                        child:
+                                                                            Align(
+                                                                          alignment: AlignmentDirectional(
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            valueOrDefault<String>(
+                                                                              (ScoryapiCall.red11(
+                                                                                rhomeScoryapiResponse.jsonBody,
+                                                                              )?[slIndex])
+                                                                                  ?.toString(),
+                                                                              '0',
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FontWeight.normal,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                if ((ShCall.b1s(
+                                                                      qfShResponse
+                                                                          .jsonBody,
+                                                                    )?[slIndex]) ==
+                                                                    currentUserDisplayName)
+                                                                  Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            1,
+                                                                            0),
+                                                                    child:
+                                                                        AuthUserStreamWidget(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              Container(
+                                                                        width:
+                                                                            99,
+                                                                        height:
+                                                                            42,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).blueteam1,
+                                                                          borderRadius:
+                                                                              BorderRadius.only(
+                                                                            bottomLeft:
+                                                                                Radius.circular(10),
+                                                                            bottomRight:
+                                                                                Radius.circular(0),
+                                                                            topLeft:
+                                                                                Radius.circular(0),
+                                                                            topRight:
+                                                                                Radius.circular(0),
+                                                                          ),
+                                                                          border:
+                                                                              Border.all(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).success,
+                                                                            width:
+                                                                                4,
+                                                                          ),
+                                                                        ),
+                                                                        child:
+                                                                            Align(
+                                                                          alignment: AlignmentDirectional(
+                                                                              0,
+                                                                              0),
+                                                                          child:
+                                                                              Text(
+                                                                            valueOrDefault<String>(
+                                                                              (ScoryapiCall.blue11(
+                                                                                rhomeScoryapiResponse.jsonBody,
+                                                                              )?[slIndex])
+                                                                                  ?.toString(),
+                                                                              '0',
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Readex Pro',
+                                                                                  letterSpacing: 0.0,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                if ((ShCall.b2s(
+                                                                      qfShResponse
+                                                                          .jsonBody,
+                                                                    )?[slIndex]) ==
+                                                                    currentUserDisplayName)
+                                                                  Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            1,
+                                                                            0),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              50,
+                                                                              0,
+                                                                              0),
+                                                                      child:
+                                                                          AuthUserStreamWidget(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                Container(
+                                                                          width:
+                                                                              99,
+                                                                          height:
+                                                                              42,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).blueteam2,
+                                                                            borderRadius:
+                                                                                BorderRadius.only(
+                                                                              bottomLeft: Radius.circular(0),
+                                                                              bottomRight: Radius.circular(0),
+                                                                              topLeft: Radius.circular(10),
+                                                                              topRight: Radius.circular(0),
+                                                                            ),
+                                                                            border:
+                                                                                Border.all(
+                                                                              color: FlutterFlowTheme.of(context).success,
+                                                                              width: 4,
+                                                                            ),
+                                                                          ),
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(0, 0),
+                                                                            child:
+                                                                                Text(
+                                                                              valueOrDefault<String>(
+                                                                                (ScoryapiCall.blue22(
+                                                                                  rhomeScoryapiResponse.jsonBody,
+                                                                                )?[slIndex])
+                                                                                    ?.toString(),
+                                                                                '0',
+                                                                              ),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Readex Pro',
+                                                                                    letterSpacing: 0.0,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ).addWalkthrough(
+                                                          stackVbxl0uoj,
+                                                          _model
+                                                              .sstartController,
+                                                        ),
+                                                      ).animateOnPageLoad(
+                                                          animationsMap[
+                                                              'cardOnPageLoadAnimation']!);
+                                                    },
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 5, 0, 0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        logFirebaseEvent(
+                                            'RHOME_PAGE_Text_w97nxrao_ON_TAP');
+                                        logFirebaseEvent('Text_navigate_to');
+
+                                        context.pushNamed(
+                                          'Rmoregames',
+                                          extra: <String, dynamic>{
+                                            kTransitionInfoKey: TransitionInfo(
+                                              hasTransition: true,
+                                              transitionType:
+                                                  PageTransitionType.fade,
+                                            ),
+                                          },
+                                        );
+                                      },
+                                      child: Text(
+                                        FFLocalizations.of(context).getText(
+                                          'k7s2h11q' /* see all games */,
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              letterSpacing: 0.0,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ].addToEnd(SizedBox(height: 24)),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  TutorialCoachMark createPageWalkthrough(BuildContext context) =>
+      TutorialCoachMark(
+        targets: createWalkthroughTargets(context),
+        onFinish: () async {
+          safeSetState(() => _model.sstartController = null);
+        },
+        onSkip: () {
+          return true;
+        },
+      );
+}
